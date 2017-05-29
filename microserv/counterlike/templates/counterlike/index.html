@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LikesCounter</title>
+</head>
+<body>
+
+<h1> List of Posts </h1>
+*** Template ***<br>
+post_id<br>
+like count<br>
+***
+<hr>
+{% if post_list %}
+    <ul>
+    {% for post in post_list %}
+	<form action="{% url 'Likes:save' post.post_id %}" method="post">
+		{% csrf_token %}
+		
+        <li>{{ post.post_id }}</li>
+		<input type="submit" name="count" checked="checked" value=Like
+               aria-label="Add/remove like"> {{ post.count_like }}
+			   
+	</form> 
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}			   
+			   
+</body>
+</html>
