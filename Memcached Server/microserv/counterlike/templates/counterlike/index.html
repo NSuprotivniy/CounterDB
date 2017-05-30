@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LikesCounter</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="info">
+            <p id="counter"></p>
+        </div>
+
+
+        <input type="text" id="post_id_input" class="input" placeholder="Post ID">
+
+    	<button id="save_btn" class="button">LIKE</button>
+        <button id="get_btn" class="button">INFO</button>
+    </div>
+			   
+		   
+			   
+</body>
+
+<script type="text/javascript">
+
+    function getXmlHttp(){
+      var xmlhttp;
+      try {
+        xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (e) {
+        try {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (E) {
+          xmlhttp = false;
+        }
+      }
+      if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+        xmlhttp = new XMLHttpRequest();
+      }
+      return xmlhttp;
+    }
+
+
+    var request_handler = function(req) {  
+        if (req.readyState == 4) { 
+            if(req.status == 200) { 
+                var context = JSON.parse(req.responseText);
+                //document.getElementById('post_id').innerHTML = context.post_id;
+                document.getElementById('counter').innerHTML = context.counter;
+
+            }
+        }
+    }
+
+    document.getElementById('save_btn').onclick = function(event) {
+        var post_id = document.getElementById('post_id_input').value
+        var req = getXmlHttp()  
+        req.open('GET', '/' + post_id + '/save/', true);  
+        req.send(null);
+        req.onreadystatechange = function() { request_handler(req) };
+    }
+
+    document.getElementById('get_btn').onclick = function(event) {
+        var post_id = document.getElementById('post_id_input').value
+        var req = getXmlHttp()  
+        req.open('GET', '/' + post_id + '/get/', true);  
+        req.send(null);
+        req.onreadystatechange = function() { request_handler(req) };
+    }
+</script>
+
+<style>
+
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        margin: auto;
+    }
+    
+    .info {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 32pt;
+    }
+
+    .button {
+        position: relative;
+        display: block;
+        padding: 19px 39px 18px 39px;
+        color: #FFF;
+        margin: 0 auto;
+        background: #1abc9c;
+        font-size: 18px;
+        text-align: center;
+        font-style: normal;
+        width: 100%;
+        border: 1px solid #16a085;
+        border-width: 1px 1px 3px;
+        margin-bottom: 10px;
+    } 
+    
+    .input {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255,255,255,.1);
+        border: none;
+        border-radius: 4px;
+        font-size: 32px;
+        text-align: center;
+        margin: 0;
+        outline: 0;
+        padding: 7px;
+        width: 100%;
+        box-sizing: border-box; 
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box; 
+        background-color: #e8eeef;
+        color:#8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+        margin-bottom: 30px;
+    }
+
+</style>
+</html>
