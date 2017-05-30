@@ -17,10 +17,12 @@ POST запрос на URL: /db/get с одним параметром post_id.
 
 Приложение форимирует ответ в виде Json:
 
+```json
 {
   'likes_num' : количество лайков,
   'info' : дополнительная информация
 }
+```
 
 В поле 'info' заносится информация о том, где была найдена запись.
 
@@ -29,11 +31,12 @@ POST запрос на URL: /db/get с одним параметром post_id.
 ## Cassandra
 
 Для работы с кластером cassandra используется django cassandra engine:
-
+```
 pip install django-cassandra-engine
-
+```
 ## Python requests
 
 Для реализации взаимодействия между Django приложениями по протоколу HTTP используется библиотека requests:
-
+```
 pip install requests
+```
