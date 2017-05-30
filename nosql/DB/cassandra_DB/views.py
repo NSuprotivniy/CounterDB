@@ -20,6 +20,8 @@ def index(request):
 @csrf_exempt
 def like(request):
     if request.POST:
+        domain = request.get_host()
+        print domain
         mc = pylibmc.Client(['127.0.0.1'], binary=True, behaviors={'tcp_nodelay':True,'ketama':True})
         JSON = {
             'likes_num': "no likes",
@@ -38,6 +40,7 @@ def like(request):
                 JSON['likes_num'] = 1
                 JSON['info'] = "cache miss DB miss"
                 return JsonResponse(JSON)
+
             like_obj.count_like = like_obj.count_like + 1
             likes_num = like_obj.count_like
             like_obj.save()
@@ -45,23 +48,28 @@ def like(request):
             JSON['likes_num'] = likes_num
             JSON['info'] = "cache miss DB hit"
             return JsonResponse(JSON)
+
         like_obj = LikeModel.objects().get(post_id = req_post_id)
         like_obj.count_like = like_obj.count_like + 1
         likes_num = like_obj.count_like
         like_obj.save()
         JSON['likes_num'] = likes_num
         return JsonResponse(JSON)
+
     return HttpResponse("not post")
 
 @csrf_exempt
 def get(request):
     if request.POST:
+        domain = request.get_host()
+        print domain
         mc = pylibmc.Client(['127.0.0.1'], binary=True, behaviors={'tcp_nodelay':True,'ketama':True})
         JSON = {
             'likes_num': "no likes",
             'info': "cache hit"
         }
         req_post_id = request.POST.get("post_id", "")
+
         likes_num = mc.get(req_post_id)
         if likes_num == None:
             try:
@@ -69,6 +77,7 @@ def get(request):
             except DoesNotExist:
                 JSON['info'] = "cache miss DB miss"
                 return JsonResponse(JSON)
+
             likes_num_cassandra = like_obj.count_like
             JSON['info'] = "cache miss DB hit"
             JSON['likes_num'] = likes_num_cassandra
@@ -77,4 +86,5 @@ def get(request):
         else:
             JSON['likes_num'] = likes_num
             return JsonResponse(JSON)
+
     return HttpResponse("not post")
