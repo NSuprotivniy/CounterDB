@@ -27,6 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Nodes list
+
+NODES_LIST = {
+    'n_list': [
+        'http://localhost:9000/',
+        'http://localhost:10000/',
+        'http://localhost:11000/'
+    ],
+    'n_number': 3
+}
 
 # Application definition
 
@@ -56,7 +66,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
 		'front/templates',
-	],
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
