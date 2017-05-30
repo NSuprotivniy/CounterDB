@@ -17,7 +17,7 @@ def get(request, post_id):
     }
 	r = requests.post(url, data=payload)
 	JSON = r.json()
-	print JSON
+	#print JSON
 	likes_num = JSON['likes_num']
 	context = { 
 		'counter': likes_num,
@@ -32,7 +32,7 @@ def save(request, post_id):
     }
 	r = requests.post(url, data=payload)
 	JSON = r.json()
-	print JSON
+	#print JSON
 	likes_num = JSON['likes_num']
 	context = { 
 		'counter': likes_num,

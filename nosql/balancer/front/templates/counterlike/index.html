@@ -7,16 +7,23 @@
 <body>
     
     <div class="container">
-        <div class="info">
-            <p id="server_info"></p>
-            <p id="counter"></p>
-        </div>
-
+        <div class="counter" id="counter"></div>
 
         <input type="text" id="post_id_input" class="input" placeholder="Post ID">
 
     	<button id="save_btn" class="button">LIKE</button>
         <button id="get_btn" class="button">INFO</button>
+
+        <div class="info">
+            <div class="info_item">
+                <span>Database hits: </span>
+                </span id="db_hits"></span>
+            </div>
+            <div class="info_item">
+                <span>Node URL: </span>
+                </span id="node_url"></span>
+            </div>
+        </div>
     </div>
 			   
 		   
@@ -47,9 +54,9 @@
         if (req.readyState == 4) { 
             if(req.status == 200) { 
                 var context = JSON.parse(req.responseText);
-                //document.getElementById('post_id').innerHTML = context.post_id;
                 document.getElementById('counter').innerHTML = context.counter;
-                document.getElementById('server_info').innerHTML = context.info;
+                document.getElementById('db_hits').innerHTML = context.info.hit;
+                document.getElementById('node_url').innerHTML = context.info.node;
             }
         }
     }
@@ -83,17 +90,31 @@
         margin: auto;
     }
     
-    .info {
+    .counter {
         font-family: Georgia, "Times New Roman", Times, serif;
-        font-size: 32pt;
+        font-size: 48px;
+        margin: 20px;
+
     }
+
+    .info {
+        align-self: left;
+        width: 100%;
+    }
+
+        .info_item {
+            padding: 5px;
+            background-color: #f44336;
+            color: white;
+            margin: 10px auto;
+        }
 
     .button {
         position: relative;
         display: block;
         padding: 19px 39px 18px 39px;
         color: #FFF;
-        margin: 0 auto;
+        margin: 10px auto;
         background: #1abc9c;
         font-size: 18px;
         text-align: center;
@@ -101,7 +122,6 @@
         width: 100%;
         border: 1px solid #16a085;
         border-width: 1px 1px 3px;
-        margin-bottom: 10px;
     } 
     
     .input {
@@ -111,7 +131,7 @@
         border-radius: 4px;
         font-size: 32px;
         text-align: center;
-        margin: 0;
+        margin: 10px auto;
         outline: 0;
         padding: 7px;
         width: 100%;
@@ -122,7 +142,6 @@
         color:#8a97a0;
         -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
         box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-        margin-bottom: 30px;
     }
 
 </style>
