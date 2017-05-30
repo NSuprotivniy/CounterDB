@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Likes</title>
+    </head>
+    <body>
+        <div>
+            <form action="/db/like" method="post">
+                Post ID: <input type="text" name="post_id"><br>
+                <input type="submit" value="Like">
+            </form> 
+        </div>
+        <div>
+            <form action="/db/get" method="post">
+                Post ID: <input type="text" name="post_id"><br>
+                <input type="submit" value="Like number">
+            </form> 
+        <div>Likes number = {{ likes_num }}</div>
+        </div>
+    </body>
+</html>
