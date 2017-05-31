@@ -21,7 +21,7 @@ def index(request):
 def like(request):
     if request.POST:
         domain = request.get_host()
-        print domain
+        #print domain
         mc = pylibmc.Client(['127.0.0.1'], binary=True, behaviors={'tcp_nodelay':True,'ketama':True})
         JSON = {
             'likes_num': "no likes",
@@ -62,7 +62,7 @@ def like(request):
 def get(request):
     if request.POST:
         domain = request.get_host()
-        print domain
+        #print domain
         mc = pylibmc.Client(['127.0.0.1'], binary=True, behaviors={'tcp_nodelay':True,'ketama':True})
         JSON = {
             'likes_num': "no likes",

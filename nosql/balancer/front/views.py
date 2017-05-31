@@ -6,7 +6,6 @@ import json
 
 import requests
 
-# Create your views here.
 
 class Nodes:
 	nodes_list = []
@@ -33,20 +32,15 @@ def index(request):
 
 def get(request, post_id):
 	url = nodes.balance(post_id)
-	print url
 	url = url + "db/get"
 	payload = {
         'post_id':post_id
     }
 	r = requests.post(url, data=payload)
 	JSON = r.json()
-<<<<<<< HEAD
-	#print JSON
-=======
+
 	domain = request.get_host()
-	print domain
-	print JSON
->>>>>>> 84ee01ecda5a4810fd2902586d97c41e9e821208
+
 	likes_num = JSON['likes_num']
 	context = { 
 		'counter': likes_num,
@@ -59,20 +53,15 @@ def get(request, post_id):
 			
 def save(request, post_id):	
 	url = nodes.balance(post_id)
-	print url
 	url = url + "db/like"
 	payload = {
         'post_id':post_id
     }
 	r = requests.post(url, data=payload)
 	JSON = r.json()
-<<<<<<< HEAD
-	#print JSON
-=======
+
 	domain = request.get_host()
-	print domain
-	print JSON
->>>>>>> 84ee01ecda5a4810fd2902586d97c41e9e821208
+
 	likes_num = JSON['likes_num']
 	context = { 
 		'counter': likes_num,
